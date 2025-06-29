@@ -1,36 +1,122 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+**Deployment URL:** [https://xendit-fe.vercel.app/](https://xendit-fe.vercel.app/)
+
+## Project Overview
+
+This is a simple payment gateway integration that allows users to pay into the system and access paid features/content. The platform includes a learning management system where users can purchase subscription packages to access premium course content.
+
+### Features
+
+- **Authentication System**: Complete login/register functionality with JWT tokens
+- **Payment Integration**: Xendit payment gateway with multiple payment methods
+- **Subscription Management**: Package-based subscription system
+- **Content Access Control**: Premium content locked behind paywall
+- **User Dashboard**: Profile management and payment history
+
+## Payment Methods Supported
+
+1. **Virtual Account**
+   - BCA, BNI, BRI, Mandiri, Permata, BSI, CIMB
+2. **Credit/Debit Cards**
+   - Visa, Mastercard, JCB
+3. **QR Code**
+   - QRIS for e-wallet payments
+
+## Architecture
+
+### Frontend (This Repository)
+
+- **Framework**: Next.js 15
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui
+- **State Management**: React Hooks
+- **HTTP Client**: Axios
+
+### Backend
+
+- **Repository**: [Backend Repository Link](https://github.com/matthewhjt/nest-xendit-be)
+- **Framework**: NestJS
+- **Database**: PostgreSQL
+- **Payment Gateway**: Xendit
+- **Authentication**: JWT
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
+- Node.js 18+
+- npm/yarn/pnpm/bun
+
+### Installation
+
+1. Clone the repository:
+
+```
+git clone https://github.com/matthewhjt/xendit-fe.git
+```
+
+2. Install dependencies:
+
+```
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+3. Setup env:  
+   Copy .env.example
+
+```
+NEXT_PUBLIC_API_URL=https://your-backend-api-url.com
+```
+
+4. Run dev server:
+
+```
 npm run dev
 # or
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deployment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Frontend (Vercel)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Connect your GitHub repository to Vercel
+2. Set environment variables in Vercel dashboard
+3. Deploy automatically on every push to main branch
 
-## Learn More
+## Application Flow
 
-To learn more about Next.js, take a look at the following resources:
+1. User Registration/Login
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   Users can create accounts or login with existing credentials JWT tokens are stored securely in cookies
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Browse Classes
 
-## Deploy on Vercel
+   View available learning classes
+   See free vs premium content indicators
+   Access basic class information
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Subscription Purchase
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   Choose from available subscription packages
+   Select payment method (Virtual Account, Credit Card, or QRIS)
+   Complete payment through Xendit gateway
+   Receive real-time payment status updates
+
+4. Access Premium Content
+
+   After successful payment, users can access premium class materials
+   Content is organized in chapters and subchapters
+   Clear visual indicators for free vs premium content
+
+5. Profile & History
+
+   View personal profile information
+   Track payment history and subscription status
+   Monitor active subscriptions
