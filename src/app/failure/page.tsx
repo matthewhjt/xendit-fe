@@ -1,26 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  XCircle,
-  RefreshCw,
-  ArrowLeft,
-  AlertTriangle,
-  CreditCard,
-} from "lucide-react";
+import { XCircle, RefreshCw, ArrowLeft } from "lucide-react";
 
 export default function FailurePage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [retrying, setRetrying] = useState(false);
-
-  const paymentId = searchParams.get("payment_id");
-  const errorMessage = searchParams.get("error");
-  const packageName = searchParams.get("package");
-  const amount = searchParams.get("amount");
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -33,35 +21,8 @@ export default function FailurePage() {
   const handleRetry = async () => {
     setRetrying(true);
     setTimeout(() => {
-      if (paymentId) {
-        router.push(`/payment/retry/${paymentId}`);
-      } else {
-        router.push("/langganan");
-      }
+      router.push("/langganan");
     }, 1000);
-  };
-
-  const formatCurrency = (amount: string) => {
-    return `Rp ${parseInt(amount).toLocaleString("id-ID")}`;
-  };
-
-  const getErrorMessage = (error: string | null) => {
-    switch (error) {
-      case "expired":
-        return "Waktu pembayaran telah habis";
-      case "cancelled":
-        return "Pembayaran dibatalkan oleh pengguna";
-      case "failed":
-        return "Pembayaran tidak dapat diproses";
-      case "insufficient_funds":
-        return "Saldo tidak mencukupi";
-      case "invalid_card":
-        return "Kartu tidak valid atau bermasalah";
-      case "network_error":
-        return "Gangguan jaringan, silakan coba lagi";
-      default:
-        return "Terjadi kesalahan dalam proses pembayaran";
-    }
   };
 
   return (
@@ -83,59 +44,6 @@ export default function FailurePage() {
           </CardHeader>
 
           <CardContent className="p-8 space-y-6">
-            <div className="bg-red-50 border border-red-200 rounded-xl p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <AlertTriangle className="w-6 h-6 text-red-600" />
-                <h3 className="text-lg font-semibold text-red-900">
-                  Alasan Kegagalan
-                </h3>
-              </div>
-              <p className="text-red-800 text-lg">
-                {getErrorMessage(errorMessage)}
-              </p>
-            </div>
-
-            {(paymentId || packageName || amount) && (
-              <div className="bg-gray-50 rounded-xl p-6 space-y-4">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                  Detail Transaksi
-                </h3>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {paymentId && (
-                    <div className="flex items-center gap-3">
-                      <CreditCard className="w-5 h-5 text-gray-600" />
-                      <div>
-                        <p className="text-sm text-gray-600">ID Pembayaran</p>
-                        <p className="font-medium text-gray-900">{paymentId}</p>
-                      </div>
-                    </div>
-                  )}
-
-                  {packageName && (
-                    <div className="flex items-center gap-3">
-                      <div className="w-5 h-5 bg-gray-400 rounded"></div>
-                      <div>
-                        <p className="text-sm text-gray-600">Paket</p>
-                        <p className="font-medium text-gray-900">
-                          {packageName}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {amount && (
-                  <div className="text-center pt-4 border-t border-gray-200">
-                    <p className="text-sm text-gray-600 mb-1">Jumlah</p>
-                    <p className="text-2xl font-bold text-gray-900">
-                      {formatCurrency(amount)}
-                    </p>
-                  </div>
-                )}
-              </div>
-            )}
-
             <div className="bg-blue-50 rounded-xl p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Saran untuk Anda
