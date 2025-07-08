@@ -24,7 +24,6 @@ const useUser = create<UserStore>()(
       setEmail: (email) => set({ email }),
       logout: () => {
         Cookies.remove("accessToken");
-        Cookies.remove("refreshToken");
         set({ userId: "", email: "" });
       },
     }),

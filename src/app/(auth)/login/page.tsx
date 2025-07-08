@@ -59,7 +59,6 @@ export default function LoginPage() {
         if (response.status === 200) {
           const data = response.data;
           Cookies.set("accessToken", data.data.accessToken);
-          Cookies.set("refreshToken", data.data.refreshToken);
           const userResponse = await api.get("/auth/me");
           const userData = userResponse.data;
           setId(userData.user.id);
